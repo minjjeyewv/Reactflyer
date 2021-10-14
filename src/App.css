@@ -1,0 +1,31 @@
+.app-wrapper{
+  display: grid;
+  grid-template-areas:
+  "header header header"
+  "nav content content";
+  grid-template-rows: 60px 1fr;
+  grid-template-columns: 2fr 10fr;
+  grid-gap: 10px;
+  width: 1200px;
+  margin: 0 auto;
+}
+.header {
+  grid-area: header;
+}
+.header img{
+  width:40px;
+}
+.sidebar {
+  grid-area: nav;
+  background-color: bisque;
+}
+.content {
+  grid-area: content;
+  background-color: darksalmon ;
+}
+.header{
+  background-color: forestgreen;
+}
+.content img{
+  width: 100%;
+}

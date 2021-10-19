@@ -5,4 +5,9 @@
 }
 .item{
     color: white;
+    padding: 5px;
+}
+.item a.active{
+    color: darkblue;
+    text-decoration: none;
 }

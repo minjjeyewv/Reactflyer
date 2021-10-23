@@ -9,7 +9,7 @@ let renderTree = (state) => {
     ReactDOM.render(
         <React.StrictMode>
             <App postData={store.getState().ProfilePage.postData} DialogsData={store.getState().MessagePage.DialogsData}
-                 messagesData={state.MessagePage.messagesData} addPost={store.addPost.bind(store)} newPostText={store.getState().ProfilePage.newPostText} updatePostText={store.updatePostText.bind(store)}/>
+                 messagesData={state.MessagePage.messagesData} dispatch={store.dispatch.bind(store)} newPostText={store.getState().ProfilePage.newPostText} />
         </React.StrictMode>,
         document.getElementById('root')
     );

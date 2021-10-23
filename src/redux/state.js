@@ -1,3 +1,5 @@
+const ADD_POST = "ADD-POST";
+const UPDATE_POST_TEXT = "UPDATE-POST-TEXT";
 export let store = {
     _renderTree() {
         console.log("state");
@@ -52,24 +54,39 @@ export let store = {
     getState(){
         return(this._state)
     },
-    addPost() {
-        debugger;
-        let newPost = {
-            id: 5,
-            count: 0,
-            post: this._state.ProfilePage.newPostText
-        }
-        this._state.ProfilePage.postData.push(newPost);
-        this._state.ProfilePage.newPostText = '';
-        this._renderTree(this._state);
-    },
-    updatePostText(newText) {
-        this._state.ProfilePage.newPostText = newText;
-        this._renderTree(this._state);
-    },
     subscibe(observer) {
         this._renderTree = observer;
+    },
+    dispatch(action){
+        if (action.type === ADD_POST){
+            let newPost = {
+                id: 5,
+                count: 0,
+                post: this._state.ProfilePage.newPostText
+            }
+            this._state.ProfilePage.postData.push(newPost);
+            this._state.ProfilePage.newPostText = '';
+            this._renderTree(this._state);
+        } else if(action.type === UPDATE_POST_TEXT){
+            this._state.ProfilePage.newPostText = action.newText;
+            this._renderTree(this._state);
+        }
     }
+}
+export const addPostActionCreator = () =>{
+    return(
+        {
+           type: ADD_POST
+        }
+    )
+}
+export const updatePostTextActionCreator = (text) =>{
+    return(
+        {
+            type: UPDATE_POST_TEXT,
+            newText: text
+        }
+    )
 }
 
 

@@ -1,5 +1,10 @@
+import profileReducer from "./Profile-reducer";
+import dialogsReducer from "./Dialogs-reducer";
+
 const ADD_POST = "ADD-POST";
 const UPDATE_POST_TEXT = "UPDATE-POST-TEXT";
+const SEND_NEW_MESSAGE = "SEND-NEW-MESSAGE";
+const UPDATE_NEW_MESSAGE = 'UPDATE-NEW-MESSAGE';
 export let store = {
     _renderTree() {
         console.log("state");
@@ -48,7 +53,9 @@ export let store = {
                 {id: "4",
                     name: "Vlad"
                 }
-            ]
+            ],
+            newMessageText: ''
+
         }
     },
     getState(){
@@ -58,35 +65,12 @@ export let store = {
         this._renderTree = observer;
     },
     dispatch(action){
-        if (action.type === ADD_POST){
-            let newPost = {
-                id: 5,
-                count: 0,
-                post: this._state.ProfilePage.newPostText
-            }
-            this._state.ProfilePage.postData.push(newPost);
-            this._state.ProfilePage.newPostText = '';
-            this._renderTree(this._state);
-        } else if(action.type === UPDATE_POST_TEXT){
-            this._state.ProfilePage.newPostText = action.newText;
-            this._renderTree(this._state);
-        }
+        this._state.ProfilePage = profileReducer(this._state.ProfilePage, action)
+        this._state.MessagePage = dialogsReducer(this._state.MessagePage, action)
+        this._renderTree(this._state)
     }
 }
-export const addPostActionCreator = () =>{
-    return(
-        {
-           type: ADD_POST
-        }
-    )
-}
-export const updatePostTextActionCreator = (text) =>{
-    return(
-        {
-            type: UPDATE_POST_TEXT,
-            newText: text
-        }
-    )
-}
+
+
 
 

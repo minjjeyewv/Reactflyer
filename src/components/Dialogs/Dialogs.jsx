@@ -4,8 +4,14 @@ import MessageItems from "./Message/MessageItems";
 import NamesItems from "./Names/NamesItems";
 
 
-
 const Dialogs = (props) => {
+    let onNewMessageClick = () => {
+        props.onNewMessageClick()
+    }
+    let onNewMessageChange = (event) =>{
+        let text = event.target.value;
+        props.onNewMessageChange(text)
+    }
     let dialogs = props.DialogsData.map((dialog) => {
         return(
             <NamesItems name={dialog.name} id={dialog.id}/>
@@ -22,7 +28,13 @@ const Dialogs = (props) => {
                 {dialogs}
             </div>
             <div className={s.messages}>
-                {messages}
+                <div>{messages}</div>
+                <div>
+                    <textarea placeholder="New message" onChange={onNewMessageChange} value={props.newMessageText}/>
+                </div>
+                <div>
+                    <button onClick={onNewMessageClick}>Send</button>
+                </div>
             </div>
         </div>
     )

@@ -31,17 +31,19 @@ let profileDefaultState =  {
 const ADD_POST = "ADD-POST";
 const UPDATE_POST_TEXT = "UPDATE-POST-TEXT";
 let profileReducer = (state = profileDefaultState , action) =>{
+    let stateCopy = {...state}
+    stateCopy.postData = [...state.postData]
     if (action.type === ADD_POST){
         let newPost = {
             id: 5,
             count: 0,
-            post: state.newPostText
+            post: stateCopy.newPostText
         }
-        state.postData.push(newPost);
-        state.newPostText = '';
+        stateCopy.postData.push(newPost);
+        stateCopy.newPostText = '';
     } else if(action.type === UPDATE_POST_TEXT){
-        state.newPostText = action.newText;
+        stateCopy.newPostText = action.newText;
     }
-    return state;
+    return stateCopy;
 }
 export default profileReducer

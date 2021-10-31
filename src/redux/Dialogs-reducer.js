@@ -48,13 +48,16 @@ let dialogsDefaultState =  {
 
 }
 let dialogsReducer = (state = dialogsDefaultState, action) => {
+    let stateCopy = {...state};
+    stateCopy.messagesData = [...state.messagesData];
     if(action.type === SEND_NEW_MESSAGE){
-        let body = state.newMessageText;
-        state.messagesData.push({id: 6, message: body });
-        state.newMessageText = '';
+        let body = stateCopy.newMessageText;
+        stateCopy.messagesData.push({id: 6, message: body });
+        stateCopy.newMessageText = '';
     } else if (action.type === UPDATE_NEW_MESSAGE){
-        state.newMessageText = action.newMessage;
+        stateCopy.newMessageText = action.newMessage;
     }
-    return state;
+    return stateCopy;
+
 }
 export default dialogsReducer;

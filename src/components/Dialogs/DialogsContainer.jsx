@@ -1,24 +1,27 @@
-import s from "./Dialogs.module.css"
-import {NavLink} from "react-router-dom";
-import MessageItems from "./Message/MessageItems";
-import NamesItems from "./Names/NamesItems";
+
 import {sendNewMessageText, updateNewMessageText} from "../../redux/Dialogs-reducer";
 import Dialogs from "./Dialogs";
+import {connect} from "react-redux";
 
+let mapStateToProps = (state) =>{
+    return{
 
+            DialogsData: state.MessagePage.DialogsData,
+            newMessageText: state.MessagePage.newMessageText,
+            messagesData: state.MessagePage.messagesData
+        }
 
-const DialogsContainer = (props) => {
-    let onNewMessageClick = () => {
-        props.store.dispatch(sendNewMessageText())
-    }
-    let onNewMessageChange = (text) =>{
-        props.store.dispatch(updateNewMessageText(text))
-    }
-
-
-    return(
-        <Dialogs onNewMessageClick={onNewMessageClick} onNewMessageChange={onNewMessageChange} DialogsData={props.store.getState().MessagePage.DialogsData}
-                 newMessageText={props.store.getState().MessagePage.newMessageText} messagesData={props.store.getState().MessagePage.messagesData}/>
-    )
 }
+let mapDispatchToProps = (dispatch) =>{
+    return{
+            onNewMessageClick: () => {
+                dispatch(sendNewMessageText())
+            },
+            onNewMessageChange: (text) => {
+                dispatch(updateNewMessageText(text))
+            }
+        }
+
+}
+let DialogsContainer = connect(mapStateToProps, mapDispatchToProps)(Dialogs);
 export default DialogsContainer;
